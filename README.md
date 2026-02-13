@@ -60,24 +60,7 @@ Deploy a GPU-accelerated chat interface using vLLM and Open WebUI on Akamai Clou
 kubectl create namespace ai-chat
 ```
 
-### 2. Install Ollama
-
-If you want to use Ollama alongside vLLM:
-```bash
-# Add Ollama Helm repository
-helm repo add ollama https://otwld.github.io/ollama-helm/
-helm repo update
-
-# Install Ollama with GPU support
-helm install ollama ollama/ollama \
-  --namespace ai-chat \
-  --set gpu.enabled=true
-
-# Pull Llama3 model into Ollama
-kubectl exec -it deploy/ollama -n ai-chat -- ollama pull llama3
-```
-
-### 3. Configure Hugging Face token
+### 2. Configure Hugging Face token
 
 Edit `vllm-deployment.yaml` and replace `<YOUR_HUGGINGFACE_TOKEN>` with your actual token:
 ```yaml
@@ -86,7 +69,7 @@ env:
   value: "hf_xxxxxxxxxxxxxxxxxxxxx"  # Your token here
 ```
 
-### 4. Deploy all resources
+### 3. Deploy all resources
 ```bash
 # Deploy vLLM server
 kubectl apply -f vllm-deployment.yaml
@@ -100,7 +83,7 @@ kubectl apply -f openwebui-deployment.yaml
 kubectl apply -f openwebui-service.yaml
 ```
 
-### 5. Get external IP and access
+### 4. Get external IP and access
 ```bash
 kubectl get svc open-webui-service -n ai-chat
 ```
