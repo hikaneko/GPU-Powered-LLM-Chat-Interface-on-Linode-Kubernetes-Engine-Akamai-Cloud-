@@ -282,12 +282,6 @@ For production deployments:
 - [Meta Llama](https://llama.meta.com/) - Open-source language models
 - [Akamai Cloud](https://www.akamai.com/cloud) - Cloud infrastructure
 
-## Support
-
-For issues and questions:
-- vLLM: [GitHub Issues](https://github.com/vllm-project/vllm/issues)
-- Open WebUI: [GitHub Issues](https://github.com/open-webui/open-webui/issues)
-- Ollama: [GitHub Issues](https://github.com/ollama/ollama/issues)
 ---
 
 **Note**: This setup is designed for development and testing.
