@@ -48,11 +48,16 @@ Deploy a GPU-accelerated chat interface using vLLM and Open WebUI on Akamai Clou
 ## Prerequisites
 
 - Akamai Cloud (Linode) account with LKE cluster
-- NVIDIA GPU Operator installed via Helm
+- **NVIDIA GPU Operator** installed via Helm
+  - Follow the [official Akamai LKE GPU setup guide](https://techdocs.akamai.com/cloud-computing/docs/gpus-on-lke) to install the GPU Operator
 - `kubectl` configured to access your cluster
 - `helm` CLI installed
-- Hugging Face account and token ([Get one here](https://huggingface.co/settings/tokens))
-
+- **Hugging Face account** with access granted to Llama 3.2 model:
+  1. Create account at [huggingface.co](https://huggingface.co/join)
+  2. Request access to [meta-llama/Llama-3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)
+  3. Wait for Meta to approve your request (usually instant to few hours)
+  4. Generate an access token at [Hugging Face Settings](https://huggingface.co/settings/tokens)
+ 
 ## Quick Start
 
 ### 1. Create namespace
@@ -62,7 +67,7 @@ kubectl create namespace ai-chat
 
 ### 2. Configure Hugging Face token
 
-Edit `vllm-deployment.yaml` and replace `<YOUR_HUGGINGFACE_TOKEN>` with your actual token:
+Edit `vllm-deployment.yaml` file below and replace `<YOUR_HUGGINGFACE_TOKEN>` with your actual token:
 ```yaml
 env:
 - name: HF_TOKEN
@@ -251,17 +256,6 @@ kubectl logs -f deployment/ollama -n ai-chat
 ### Check GPU allocation
 ```bash
 kubectl describe node <node-name> | grep -A 10 "Allocated resources"
-```
-
-## Clean Up
-
-Remove all deployed resources:
-```bash
-# Uninstall Ollama (if installed)
-helm uninstall ollama -n ai-chat
-
-# Delete namespace and all resources
-kubectl delete namespace ai-chat
 ```
 
 ## Security Considerations
